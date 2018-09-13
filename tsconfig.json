@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "pretty": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "module": "commonjs",
+        "target": "es2017",
+        "lib":[ "es2017", "dom" ],
+        "esModuleInterop": true,
+        "alwaysStrict": true,
+        "noImplicitAny": true,
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "outDir": "dist",
+        "baseUrl": "src",
+        "jsx": "react",
+        "paths": {
+            "*": [
+                "node_modules/*",
+                "src/types/*"
+            ]
+        }
+    },
+    "include": [
+        "client/**/*"
+    ],
+    "exclude": [
+        "node_modules/**/*"
+    ]
+}
