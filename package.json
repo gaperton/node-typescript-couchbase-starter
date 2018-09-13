@@ -6,7 +6,8 @@
   "scripts": {
     "build:client": "node_modules/.bin/webpack --config ./frontend/webpack.config.js --mode production",
     "watch:client": "node_modules/.bin/webpack --config ./frontend/webpack.config.js --mode development",
-    "build:server": "node_modules/.bin/tsc --project server",
+    "build:server": "node_modules/.bin/tsc --project backend",
+    "server": "npm run build:server && node ./dist/index.js",
     "test": "jest --forceExit --coverage --verbose"
   },
   "repository": {
@@ -28,6 +29,7 @@
   "devDependencies": {
     "@types/dotenv": "^4.0.3",
     "@types/koa": "^2.0.46",
+    "@types/koa-bodyparser": "^5.0.1",
     "@types/koa-router": "^7.0.31",
     "@types/koa-session": "^5.7.4",
     "@types/koa-static": "^4.0.0",
@@ -48,6 +50,7 @@
     "couchbase": "^2.5.1",
     "dotenv": "^6.0.0",
     "koa": "^2.5.3",
+    "koa-bodyparser": "^4.2.1",
     "koa-router": "^7.4.0",
     "koa-session": "^5.9.0",
     "koa-static": "^5.0.0"
