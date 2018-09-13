@@ -1,0 +1,30 @@
+{
+    "compilerOptions": {
+        "pretty": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "module": "commonjs",
+        "target": "es5",
+        "lib":[ "es2017", "dom" ],
+        "esModuleInterop": true,
+        "alwaysStrict": true,
+        "noImplicitAny": true,
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "outDir": "dist",
+        "baseUrl": ".",
+        "jsx": "react",
+        "paths": {
+            "*": [
+                "../node_modules/*",
+                "./types/*"
+            ]
+        }
+    },
+    "include": [
+        "../frontend/**/*"
+    ],
+    "exclude": [
+        "../node_modules/**/*"
+    ]
+}

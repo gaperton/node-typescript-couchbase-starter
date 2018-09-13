@@ -5,29 +5,28 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin' );
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
-const NODE_ENV = process.env.NODE_ENV || 'development';
-
-module.exports = {
-	context: path.resolve(__dirname, 'client'),
+module.exports = ( env, argv ) => ({
+	context: path.resolve(__dirname, '.'),
 
 	entry: {
-		client : ['./index.tsx']
+		index : ['./index.tsx']
 	},
 
 	output: {
-		path: path.resolve(__dirname, 'htdocs'),
-		filename: '[name].bundle.js'
+		path: path.resolve(__dirname, '../www'),
+		filename: '[name]-[chunkhash].bundle.js'
 	},
 
-    mode : NODE_ENV || 'development',
-	watch: NODE_ENV === 'development',
+    //mode : NODE_ENV || 'development',
+	watch: argv.mode === 'development',
 
     watchOptions: {
         aggregateTimeout: 100
     },
 
-	devtool: NODE_ENV === 'development' ? 'source-map' : null,
+	devtool: argv.mode === 'development' ? 'source-map' : false,
 
 	module: {
 		rules: [
@@ -62,15 +61,14 @@ module.exports = {
 	},
 
     plugins: [
-        new webpack.DefinePlugin({
-            NODE_ENV: JSON.stringify(NODE_ENV)
-        }),
-        new HtmlWebpackPlugin()
+        new CleanWebpackPlugin(['../www'], { allowExternal : true }),
+        new HtmlWebpackPlugin({
+            title : 'Your app'
+        })
     ],
 
     resolve: {
 	    modules: [
-            path.join(__dirname, 'client'),
             'node_modules'
         ],
         extensions: ['.js', '.jsx', '.ts', '.tsx']
@@ -99,17 +97,4 @@ module.exports = {
           }
         }
       }
-}
-
-if (NODE_ENV == 'production') {
-    module.exports.plugins.push(
-        new webpack.optimize.UglifyJsPlugin({
-          compress: {
-            // don't show unreachable variables etc
-            warnings:     false,
-            drop_console: true,
-            unsafe:       true
-          }
-        })
-    );
-}
+});

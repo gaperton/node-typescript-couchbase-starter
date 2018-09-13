@@ -11,20 +11,19 @@
         "noImplicitAny": true,
         "moduleResolution": "node",
         "sourceMap": true,
-        "outDir": "dist",
-        "baseUrl": "src",
-        "jsx": "react",
+        "outDir": "../dist",
+        "baseUrl": ".",
         "paths": {
             "*": [
-                "node_modules/*",
-                "src/types/*"
+                "../node_modules/*",
+                "./types/*"
             ]
         }
     },
     "include": [
-        "client/**/*"
+        "./**/*"
     ],
     "exclude": [
-        "node_modules/**/*"
+        "../node_modules/**/*"
     ]
 }
