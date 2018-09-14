@@ -1,8 +1,17 @@
 import * as Router from 'koa-router'
-import { IOEndpoint } from 'type-r'
+import { IOEndpoint, Record } from 'type-r'
 
-export function endpoint( router : Router, root : string, endpoint : IOEndpoint & { rpc? : { [ name : string ] : Function } }){
-    const resource = root + '/:id';
+export type HttpEndpoint = Partial<IOEndpoint & { rpc? : { [ name : string ] : Function } }>;
+
+export function endpoints( router : Router, endpoints : { [ name : string ] : typeof Record | HttpEndpoint }) : void {
+    for( let root in endpoints ){
+        endpoint( router, root, endpoints[ root ] );
+    }
+}
+
+export function endpoint( router : Router, root : string, a_endpoint : typeof Record | HttpEndpoint ){
+    const resource = root + '/:id',
+        endpoint = typeof a_endpoint === 'function' ? proxyIO( a_endpoint ) : a_endpoint;
 
     if( 'read' in endpoint ){
         router.get( resource, async ctx => {
