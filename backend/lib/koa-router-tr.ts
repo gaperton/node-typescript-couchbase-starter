@@ -1,5 +1,12 @@
-import * as Router from 'koa-router'
+import Router from 'koa-router'
 import { IOEndpoint, Record } from 'type-r'
+
+export default class EndpointRouter extends Router {
+    endpoint( path : string, resource : typeof Record | HttpEndpoint ) : this {
+        endpoint( this, path, resource );
+        return this;
+    }
+}
 
 export type HttpEndpoint = Partial<IOEndpoint & { rpc? : { [ name : string ] : Function } }>;
 
