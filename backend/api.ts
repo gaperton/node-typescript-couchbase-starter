@@ -8,4 +8,10 @@ api.get( '/api', async ctx => {
     };
 });
 
+/**
+ * 1) api.endpoint( '/name', endpoint )
+ * 2) api.get( '/api', 
+ * }))
+ */
+
 export default api;
