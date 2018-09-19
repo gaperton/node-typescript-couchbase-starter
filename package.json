@@ -4,10 +4,11 @@
   "description": "NodeJS TypeScript Couchbase project starter",
   "main": "dist/index.js",
   "scripts": {
-    "build:client": "node_modules/.bin/webpack --config ./frontend/webpack.config.js --mode production",
-    "watch:client": "node_modules/.bin/webpack --config ./frontend/webpack.config.js --mode development",
-    "build:server": "node_modules/.bin/tsc --project backend",
-    "server": "npm run build:server && node ./dist/index.js",
+    "build:frontend": "node_modules/.bin/webpack --config ./frontend/webpack.config.js --mode production",
+    "watch:frontend": "node_modules/.bin/webpack --config ./frontend/webpack.config.js --mode development",
+    "build:backend": "node_modules/.bin/tsc --project backend",
+    "build":"npm run build:backend && npm run build:frontend",
+    "start": "npm run build:backend && node ./dist/index.js",
     "test": "jest --forceExit --coverage --verbose"
   },
   "repository": {
@@ -59,6 +60,7 @@
     "koa-router": "^7.4.0",
     "koa-session": "^5.9.0",
     "koa-static": "^5.0.0",
+    "reflect-metadata": "^0.1.12",
     "strip-ansi": "^4.0.0",
     "type-r": "^2.1.8",
     "winston": "^3.1.0"

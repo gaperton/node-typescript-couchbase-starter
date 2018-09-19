@@ -1,38 +1,7 @@
-import { createLogger, transports, http, format } from 'winston'
-import stripAnsi from 'strip-ansi'
 
-const httpLogger = createLogger({
-    transports: [
-      new transports.Console({
-          format : format.simple()
-      }),
-      new transports.File({
-          filename: './logs/http.log',
-          decolorize : true,
-          format : format.combine(
-              format.simple(),
-              format.uncolorize()
-          )
-      } as any)
-    ]
-});
+import "reflect-metadata"
 
-httpLogger.info( 'Started' );
-
-import dotenv from "dotenv";
-dotenv.config({ path : ".env" });
-
-import Koa from 'koa'
-import logger from 'koa-logger'
-
-const app = new Koa();
-app.use( ( logger as any )( ( ctx : any, args : any ) => {
-    httpLogger.info( ctx );
-} ) );
-
-import bodyParser from 'koa-bodyparser'
-app.use(bodyParser());
-
+import app, { httpLogger } from './app'
 
 // Initialize session
 // ====================
@@ -65,4 +34,4 @@ app.use( serve( './www', { gzip : true } ) );
 
 app.listen(3000);
 
-console.log('listening on port 3000');
+httpLogger.info('listening on port 3000');

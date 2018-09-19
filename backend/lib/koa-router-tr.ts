@@ -1,5 +1,12 @@
+/**
+ * Koa router binding for Type-R
+ * 
+ * 
+ */
+
 import Router from 'koa-router'
 import { IOEndpoint, Record } from 'type-r'
+import { proxyIO } from 'type-r/endpoints/proxy'
 
 export default class EndpointRouter extends Router {
     endpoint( path : string, resource : typeof Record | HttpEndpoint ) : this {
@@ -18,7 +25,7 @@ export function endpoints( router : Router, endpoints : { [ name : string ] : ty
 
 export function endpoint( router : Router, root : string, a_endpoint : typeof Record | HttpEndpoint ){
     const resource = root + '/:id',
-        endpoint = typeof a_endpoint === 'function' ? proxyIO( a_endpoint ) : a_endpoint;
+        endpoint : HttpEndpoint = typeof a_endpoint === 'function' ? proxyIO( a_endpoint ) : a_endpoint;
 
     if( 'read' in endpoint ){
         router.get( resource, async ctx => {
@@ -63,7 +70,7 @@ export function endpoint( router : Router, root : string, a_endpoint : typeof Re
 
 import { Context } from 'koa';
 
-function parseQuery({ request, params } : Context ){
+function parseQuery({ request, params } : Context ) : object {
     let res : { [ name : string ] : any } = { pathParams : params },
         { query } = request;
 
